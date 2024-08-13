@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>__MSG_appName__</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <h1>__MSG_appName__</h1>
+        <div id="actionButtons">
+            <button id="ctaButton">__MSG_organizeButton__</button>
+            <button id="applyChanges" class="hidden">__MSG_applyChanges__</button>
+        </div>
+        <div id="loader" class="hidden">
+            <div class="spinner"></div>
+            <p>__MSG_organizing__</p>
+        </div>
+        <div id="progress"></div>
+        <div id="results" class="hidden">
+            <h2>__MSG_suggestionsTitle__</h2>
+            <table id="resultTable">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="selectAll"></th>
+                        <th>__MSG_bookmarkName__</th>
+                        <th>__MSG_suggestedFolder__</th>
+                    </tr>
+                </thead>
+                <tbody id="resultList">
+                    <!-- Results will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script type="module" src="popup.js"></script>
+    <script type="module" src="ai.js"></script>
+</body>
+</html>

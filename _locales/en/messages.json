@@ -1,0 +1,34 @@
+{
+    "appName": {
+      "message": "BookMark Organizer",
+      "description": "The title of the application"
+    },
+    "appDesc": {
+      "message": "Organize your bookmarks with one click",
+      "description": "The description of the application"
+    },
+    "organizeButton": {
+      "message": "Organize",
+      "description": "Text for the organize button"
+    },
+    "applyChanges": {
+      "message": "Apply Changes",
+      "description": "Text for the apply changes button"
+    },
+    "organizing": {
+      "message": "Organizing...",
+      "description": "Text shown while organizing"
+    },
+    "suggestionsTitle": {
+      "message": "Organization Suggestions",
+      "description": "Title for the suggestions section"
+    },
+    "bookmarkName": {
+      "message": "Bookmark Name",
+      "description": "Column header for bookmark name"
+    },
+    "suggestedFolder": {
+      "message": "Suggested Folder",
+      "description": "Column header for suggested folder"
+    }
+  }
