@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (selectedBookmarks.length > 0) {
             applyBookmarkChanges(selectedBookmarks);
         } else {
-            alert('请选择至少一个书签来应用更改。');
+            alert('Please select at least one bookmark to apply the changes.');
         }
     });
 });
@@ -70,7 +70,7 @@ function extractJsonFromString(str) {
             return JSON.parse(match[0]);
         }
     } catch (error) {
-        console.error("解析 JSON 时出错:", error);
+        console.error("JSON error:", error);
     }
     return null;
 }
@@ -81,7 +81,6 @@ function displayError(message) {
 }
 
 
-// 将书签分组的函数
 function splitBookmarksIntoGroups(bookmarks, groupSize = 30) {
     let groups = [];
     for (let i = 0; i < bookmarks.length; i += groupSize) {
@@ -91,12 +90,10 @@ function splitBookmarksIntoGroups(bookmarks, groupSize = 30) {
 }
 
 
-// 更新进度 UI 的函数
 function updateProgressUI() {
-    document.getElementById('progress').textContent = `已处理 ${processedCount} / ${totalCount} 个书签`;
+    document.getElementById('progress').textContent = ` ${processedCount} / ${totalCount} `;
 }
 
-// 处理单个组的函数
 async function processBookmarkGroup(group) {
     let folderStructure = await new Promise(resolve => getBookmarkFolderStructure(resolve));
     let prompt = Prompt(folderStructure, group);
@@ -115,11 +112,10 @@ async function processBookmarkGroup(group) {
         processedCount += group.length;
         updateProgressUI();
     } else {
-        displayError("无法解析 AI 返回的结果。请重试。");
+        displayError("Could not parse the results returned by the AI. Please try again.");
     }
 }
 
-// 主要的处理函数
 async function processBookmarks() {
     const organizeButton = document.getElementById('ctaButton');
     organizeButton.classList.add('hidden');
@@ -135,8 +131,8 @@ async function processBookmarks() {
     try {
         await Promise.all(bookmarkGroups.map(processBookmarkGroup));
     } catch (error) {
-        console.error("处理书签组时发生错误:", error);
-        displayError("处理书签时发生错误，请重试。");
+        console.error("error", error);
+        displayError("something error");
     }
     
     loader.classList.add('hidden');
@@ -149,7 +145,7 @@ async function processBookmarks() {
 
 
 function displayResults(bookmarks, newSuggestions) {
-    resultList.innerHTML = ''; // 清空现有的结果列表
+    resultList.innerHTML = ''; 
     bookmarks.forEach((bookmark) => {
         bookmarkMap.set(bookmark.id, bookmark);
         let suggestion = newSuggestions[bookmark.id];
@@ -242,15 +238,15 @@ function applyBookmarkChanges(selectedBookmarks) {
                     successCount++;
                 } else {
                     errorCount++;
-                    console.error(`移动书签 "${result.bookmark.title}" 失败: ${result.error}`);
+                    console.error(`move "${result.bookmark.title}" fail: ${result.error}`);
                 }
             });
-            alert(`操作完成。成功移动 ${successCount} 个书签，失败 ${errorCount} 个。`);
-            location.reload(); // 刷新页面以更新显示
+            alert(`Operation completed. Successfully moved ${successCount} bookmarks, failed ${errorCount}.`);
+            location.reload(); // Refresh the page to update the display
         })
         .catch(error => {
-            console.error('处理书签时发生错误:', error);
-            alert('处理书签时发生错误，请查看控制台获取详细信息。');
+            console.error('Error occurred while processing bookmarks:', error);
+            alert('An error occurred while processing bookmarks. Please check the console for detailed information.');
         });
 }
 
@@ -260,10 +256,10 @@ function moveBookmarkToFolder(bookmark) {
         
         chrome.bookmarks.getChildren('1', (bookmarkBarContents) => {
             if (chrome.runtime.lastError) {
-                resolve({ success: false, error: '无法访问书签栏', bookmark });
+                resolve({ success: false, error: 'Unable to access bookmark bar', bookmark });
                 return;
             }
-            
+                     
             createFolderPath('1', folderPath, 0);
         });
 

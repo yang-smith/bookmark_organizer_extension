@@ -1,42 +1,39 @@
-
-const OPENAI_API_KEY = '***'; 
-const OPENAI_URL = '***'; 
+const OPENAI_API_KEY = '***';
+const OPENAI_URL = '***';
 
 export function Prompt(folders, bookmarks) {
     const bookmarkList = bookmarks
         .map((bookmark, index) => `${index + 1}. ${bookmark.title}: ${bookmark.url}`)
         .join('\n');
 
-    return `你的目标是帮我将散落的书签放到合适的文件夹内。
+    return `Your goal is to help me organize scattered bookmarks into appropriate folders.
 
-我的书签文件夹结构:
+My bookmark folder structure:
 ${folders}
 
-未分类的书签:
+Uncategorized bookmarks:
 ${bookmarkList}
 
-请根据书签的内容和标题，建议将每个未分类的书签放入最合适的文件夹。如果现有文件夹都不合适，可以建议创建新的文件夹。
-对于每个书签，请给出建议并使用以下JSON格式输出:
+Please suggest placing each uncategorized bookmark into the most suitable folder based on its content and title. If none of the existing folders are suitable, you can suggest creating a new folder.
+For each bookmark, please provide your suggestion using the following JSON format:
 
 {
-    "1": "建议的文件夹名称",
-    "2": {"name": "新文件夹名称", "new": true},
-    "3": "建议的文件夹名称"
+    "1": "Suggested folder name",
+    "2": {"name": "New folder name", "new": true},
+    "3": "Suggested folder name"
     ...
 }
 
-注意事项：
-1. 数字键对应书签的编号。
-2. 如果建议创建新文件夹，请使用对象格式，包含"name"和"new"字段。
-3. 确保你的建议简洁明了，并且与现有的文件夹结构保持一致。
-4. 文件夹名称使用类似于“A/B/C”的方式区分层级
-5. 只返回JSON对象，不要包含其他说明文字。`;
+Notes:
+1. The numeric keys correspond to the bookmark numbers.
+2. If suggesting a new folder, please use the object format including "name" and "new" fields.
+3. Ensure your suggestions are concise and consistent with the existing folder structure.
+4. Use a format like "A/B/C" to distinguish folder hierarchy levels.
+5. Only return the JSON object, do not include any other explanatory text.`;
 }
-
 
 export async function AI_Chat(prompt, model) {
     try {
-
         const messages = [
             { "role": "system", "content": "you are a helpful assistant." },
             { "role": "user", "content": prompt }
